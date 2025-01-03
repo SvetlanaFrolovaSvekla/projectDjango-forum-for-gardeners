@@ -8,3 +8,7 @@ This project is a forum for gardeners. It can be easily supplemented. The code i
 - Tags for articles/discussions, filtering by tags
 
 The branch with the current contents is -master-.
+
+*To launch the project, specify:
+cd projectDjango
+python manage.py runserver
