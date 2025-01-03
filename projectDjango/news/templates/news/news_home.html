@@ -1,0 +1,107 @@
+{% extends 'main/layout.html'%}
+{% load static %} <!-- Подключение библиотеки для работы со статическими файлами -->
+{% block title%}
+Новости на сайте
+{% endblock %}
+
+{% block content%}
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const searchBox = document.getElementById("search-box");
+    const searchIcon = document.getElementById("search-icon");
+    const closeIcon = document.getElementById("close-icon");
+    const posts = document.querySelectorAll(".alert");
+
+    // Функция для фильтрации статей
+    const filterPosts = () => {
+        const query = searchBox.value.toLowerCase();
+        posts.forEach(post => {
+            const title = post.getAttribute("data-title");
+            if (title.includes(query)) {
+                post.style.display = "block";
+            } else {
+                post.style.display = "none";
+            }
+        });
+    };
+
+    // Обработчик для кнопки поиска
+    searchIcon.addEventListener("click", filterPosts);
+
+    // Обработчик для кнопки очистки
+    closeIcon.addEventListener("click", () => {
+        searchBox.value = "";
+        posts.forEach(post => (post.style.display = "block"));
+    });
+
+    // Также фильтруем в реальном времени
+    searchBox.addEventListener("input", filterPosts);
+});
+</script>
+
+
+<div class="features-zagolovok">Все статьи блога:</div><br>
+
+<div class="post_search">
+    <input id="search-box" class="search_box" type="text" placeholder="Поиск статьи"/>
+
+    <div><img id="search-icon" src="{% static 'main/img/Search.svg' %}" alt="Icon" class="search_search"></div>
+    <div><img id="close-icon" src="{% static 'main/img/Close2.svg' %}" alt="Icon" class="search_search"></div>
+</div><br>
+
+<div>
+    <p class="butt-search">Смотреть по тегам: </p>
+    <div class="button-bar1">
+        <a href="{% url 'news_by_tag' 4 %}" class="color-button1 green">Уход за растениями</a>
+        <a href="{% url 'news_by_tag' 1 %}" class="color-button1 orange">Полив</a>
+        <a href="{% url 'news_by_tag' 16 %}" class="color-button1 yellow">Обрезка</a>
+        <a href="{% url 'news_by_tag' 3 %}" class="color-button1 blue">Удобрения</a>
+    </div>
+    <div class="button-bar1">
+        <a href="{% url 'news_by_tag' 5 %}" class="color-button1 pink">Вертикальный сад</a>
+        <a href="{% url 'news_by_tag' 6 %}" class="color-button1 purple">Посадка семян</a>
+        <a href="{% url 'news_by_tag' 7 %}" class="color-button1 cyan">Дренаж в саду</a>
+        <a href="{% url 'news_by_tag' 8 %}" class="color-button1 lime">Мульчирование</a>
+    </div>
+    <div class="button-bar1">
+        <a href="{% url 'news_by_tag' 9 %}" class="color-button1 brown">Подготовка почвы</a>
+        <a href="{% url 'news_by_tag' 10 %}" class="color-button1 gray">Планирование сада</a>
+        <a href="{% url 'news_by_tag' 11 %}" class="color-button1 red">Борьба с вредителями</a>
+        <a href="{% url 'news_by_tag' 12 %}" class="color-button1 rome">Садовые композиции</a>
+    </div>
+    <div class="button-bar1">
+        <a href="{% url 'news_by_tag' 13 %}" class="color-button1 green">Дачная кухня</a>
+        <a href="{% url 'news_by_tag' 14 %}" class="color-button1 orange">Сезонные работы</a>
+        <a href="{% url 'news_by_tag' 15 %}" class="color-button1 yellow">Обрезка растений</a>
+        <a href="{% url 'news_by_tag' 16 %}" class="color-button1 blue">Гидропоника</a>
+    </div>
+</div>
+
+<div id="post-content" class="PostContent">
+    {% if news %}
+    {% for el in news %}
+    <div class="alert" data-title="{{ el.title|lower }}">
+
+        <div class="post_social_info">
+            <p> Автор: {{ el.author.username|default:_("'Неизвестен'") }} </p>
+            {% if el.image %}
+            <img src="{{ el.image.url }}" alt="Изображение" class="img-fluid">
+            {% endif %}
+            <div class="stat-title">{{ el.title }}</div>
+            <div class="stat-anons">{{ el.anons }}</div>
+            <p class="stat-date">{{ el.date }}</p>
+        </div>
+        <a href="{% url 'news_detail' el.id %}" class="btn_red">Читать статью</a>
+        <br><br>
+        <p class="tegs-style"> Теги: </p>
+        {% for tag in el.tags.all %}
+        <span class="tegs-style-tegs">#{{ tag.name }} </span>
+        {% endfor %}
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="features-notStat"> Таких статей ещё нет!</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,224 @@
+{% extends 'main/layout.html'%}
+{% load static %}
+{% block title%}
+Новости на сайте
+{% endblock %}
+
+{% block content%}
+
+<div class="article-container">
+    <div class="article-container-text">{{ article.title }}</div>
+    <div class="stat-date">Дата добавления статьи: {{ article.date }}</div>
+
+    {% if article.image %}
+    <img src="{{ article.image.url }}" alt="Изображение статьи">
+    {% endif %}
+    <p>{{ article.full_text }}</p>
+    <a href="{% url 'news_home' %}" class="back-btn">Назад к новостям</a>
+</div>
+
+<style>
+
+.comment-container-content {
+    max-width: 1200px;
+    margin: 5px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Vollkorn', serif;
+    font-size: 20px;
+    text-align: left;
+
+}
+
+.comment-container-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+    .comment-item {
+    background: #2a2522;
+    color: white;
+    padding: 35px;
+    padding-top:-15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+
+}
+
+
+    .comment-left {
+   /* background: #33271f;*/
+   /* box-shadow: 0px 0px 8px rgba(123, 79, 50, 0.8); /* Создает подсветку текста */
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    width: 1100px;  /* Фиксированная ширина блока с аватаркой и именем */
+    height: 100px;
+    margin-right: 120px;  /* Отступ между блоком с аватаром и комментарием */
+}
+
+.avatar {
+    width: 50px;  /* Размер аватарки */
+    height: 50px;
+    border-radius: 50%;  /* Делает картинку круглой */
+    margin-right: 30px;  /* Отступ между аватаркой и именем */
+}
+
+.comment-left strong {
+    white-space: nowrap;  /* Не даёт имени автора переноситься */
+    overflow: hidden;
+    text-overflow: ellipsis;  /* Если имя слишком длинное, оно обрежется с многоточием */
+}
+
+.comment-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;  /* Занимает всю доступную ширину */
+}
+
+.comment-date {
+    font-size: 14px;
+    color: #bbb;
+}
+
+.comment-content {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.close-button {
+    margin-top: 5px;
+    align-self: flex-end;  /* Сдвигаем кнопку Close вправо */
+}
+
+.close-button img {
+    width: 20px;  /* Размер иконки Close */
+    height: auto;
+}
+
+.article-container-text-comment-content {
+    margin-top: -10px;
+    font-family: 'Vollkorn', serif;
+    font-size: 35px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.close-button {
+    cursor: pointer;  /* Устанавливаем указатель для кнопки */
+    margin-left: 1200px;
+}
+
+.stat-date p {
+color:white;
+}
+
+</style>
+
+
+<hr>
+<div class="comment-container-content">
+    <div class="article-container-text-comment-content">Комментарии:</div>
+    <ul>
+        {% for comment in comments %}
+        <li class="comment-item">
+            <div class="comment-left">
+                <img src="{% static 'main/img/LK.svg' %}" alt="Аватар" class="avatar">
+                <strong>
+
+            <div class="comment-right">
+                <div class="comment-date">
+                    Автор: ({{ comment.author }})
+                </div>
+                <div class="comment-date">
+                    Дата публикации: ({{ comment.created_at|date:"d.m.Y H:i" }})
+                </div>
+                <div class="comment-date">
+                    Комменатрий:
+                </div>
+                <p class="comment-content">{{ comment.content }}</p>
+                <div class="close-button">
+    {% if comment.author == request.user.username %}
+        <img src="{% static 'main/img/Close.svg' %}"
+             alt="Закрыть"
+             class="close-icon"
+             onclick="confirmDeletion({{ comment.id }})">
+    {% endif %}
+</div>
+
+
+            </div>
+        </li>
+        {% empty %}
+        <div class="article-container-text-comment" style="margin-top: 20px; font-size: 35px;">
+            Комментариев к статье пока нет. Станьте первым!
+        </div>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="comment-container">
+    <div class="article-container-text-comment" style="margin-top: 20px; font-size: 25px;">
+        Добавить комментарий:
+        <br><br>
+        <form method="post" onsubmit="return validateForm()">
+            {% csrf_token %}
+            {% if not request.user.is_authenticated %}
+                <input type="text" name="author" class="form-control" placeholder="Ваше имя" required>
+            {% endif %}
+            {{ form.content }}
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    function showMessage() {
+        // Показываем всплывающее сообщение
+        alert("Комментарий успешно удален!");
+    }
+
+    function confirmDeletion(commentId) {
+        // Запрос на удаление
+        if (confirm("Удалить ли комментарий?")) {
+            // Сначала показываем сообщение, а затем редиректим
+            showMessage();
+
+            // Ожидаем 1 секунду, чтобы сообщение успело появиться
+            setTimeout(function() {
+                window.location.href = `/news/delete-comment/${commentId}/`;
+            }, 1000); // 1000 миллисекунд = 1 секунда
+        }
+    }
+
+     function validateForm() {
+        // Получаем значение поля "Автор"
+        var authorField = document.getElementById("id_author");  // Замените "id_author" на id вашего поля формы, если оно другое.
+
+        // Проверяем, что поле не пустое
+        if (authorField.value.trim() === "") {
+            alert("Пожалуйста, укажите ваше имя в поле 'Автор'.");
+            return false;  // Возвращаем false, чтобы предотвратить отправку формы
+        }
+
+        // Проверяем, что длина имени не более 10 символов
+        if (authorField.value.length > 10) {
+            alert("Поле -Автор- не может быть более 20 символов! Пожалуйста, исправьте это");
+            return false;  // Возвращаем false, чтобы предотвратить отправку формы
+        }
+
+        return true;  // Если все в порядке, форма будет отправлена
+    }
+</script>
+
+<!-- Навигация
+    <a href="{% url 'news_delete' article.id %}" class = "btn btn-danger">Удалить</a>
+    <a href="{% url 'news_update' article.id %}" class = "btn btn-danger">Редактировать</a>
+    -->
+{% endblock %}

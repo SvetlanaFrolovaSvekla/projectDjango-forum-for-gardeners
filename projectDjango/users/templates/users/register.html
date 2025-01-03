@@ -1,0 +1,143 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main/css/login.css' %}">
+    <title>Регистрация</title>
+</head>
+<style>
+ /* Общий стиль */
+        body {
+            font-family: 'Vollkorn', serif;
+            font-size: 20px;
+            background-color: #121212; /* Темный фон страницы */
+            color: #e0e0e0; /* Светлый текст */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+
+        }
+
+        /* Контейнер для формы */
+        .auth-container {
+            background: #1e1e1e; /* Темный фон контейнера */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5); /* Более выраженная тень */
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        /* Заголовок формы */
+        h1 {
+            text-align: center;
+            font-size: 35px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        /* Стиль формы */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Стиль для меток */
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+
+        /* Стиль для полей ввода */
+        input {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: #2a2a2a; /* Темный фон для полей */
+            color: #e0e0e0;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #4a90e2; /* Синий цвет рамки при фокусе */
+            outline: none;
+        }
+
+        /* Стиль для кнопки */
+        button {
+            padding: 12px;
+            background-color: #4a90e2; /* Ярко-синий фон */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #3a78c0; /* Более темный синий при наведении */
+            transform: translateY(-2px); /* Легкий подъем кнопки */
+        }
+
+        button:active {
+            transform: translateY(0); /* Кнопка возвращается обратно при нажатии */
+        }
+
+        /* Стиль для ссылок внизу формы */
+        .footer-link {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .footer-link a {
+            color: #4a90e2; /* Синий цвет ссылки */
+            text-decoration: none;
+        }
+
+        .footer-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Медиа-запросы для адаптивности */
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px; /* Уменьшаем размер заголовка для мобильных устройств */
+            }
+
+            input, button {
+                font-size: 14px; /* Меньше шрифт для кнопок и полей ввода на мобильных устройствах */
+            }
+        }
+
+
+</style>
+
+<body>
+    <div class="auth-container">
+        <h1>Регистрация</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name ="next" value="{{ next }}" />
+            {{ form.as_p }}
+            <p><button type="submit">Регистрация</button></p>
+        </form>
+    </div>
+</body>
+</html>

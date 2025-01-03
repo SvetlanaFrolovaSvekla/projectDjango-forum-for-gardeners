@@ -1,0 +1,87 @@
+{% extends 'main/layout.html'%}
+
+{% block title%}
+Форма по добавлению обсуждения
+{% endblock %}
+
+{% block content%}
+<div class="features">
+    <style>
+
+        .features {
+    max-width: 600px; /* Ограничивает ширину контейнера */
+    margin: 50px auto; /* Центрирует блок на странице */
+    padding: 20px; /* Внутренние отступы */
+    background-color: #f9f9f9; /* Светло-серый фон */
+    border: 1px solid #ddd; /* Лёгкая граница */
+    border-radius: 8px; /* Скруглённые углы */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Тень для объёма */
+    font-family: Arial, sans-serif; /* Базовый шрифт */
+}
+
+.features h1 {
+    text-align: center; /* Центрирует заголовок */
+    color: #333; /* Тёмно-серый цвет текста */
+    font-size: 24px; /* Размер шрифта */
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+.features form {
+    display: flex; /* Используем флекс для выравнивания */
+    flex-direction: column; /* Элементы располагаются в столбик */
+    gap: 15px; /* Расстояние между полями */
+}
+
+.features input[type="text"],
+.features textarea,
+.features input[type="date"] {
+    width: 100%; /* Ширина равна ширине контейнера */
+    padding: 10px; /* Внутренний отступ */
+    border: 1px solid #ccc; /* Граница */
+    border-radius: 4px; /* Скругление */
+    font-size: 16px; /* Размер текста */
+}
+
+.features input[type="text"]:focus,
+.features textarea:focus,
+.features input[type="date"]:focus {
+    outline: none; /* Убирает стандартную рамку при фокусе */
+    border-color: #007BFF; /* Цвет границы при фокусе */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Тень при фокусе */
+}
+
+.features span {
+    color: red; /* Цвет для ошибки */
+    font-size: 14px; /* Размер текста */
+}
+
+.features button {
+    background-color: #007BFF; /* Синий фон кнопки */
+    color: white; /* Белый текст */
+    padding: 10px 15px; /* Отступы */
+    border: none; /* Убираем границу */
+    border-radius: 4px; /* Скругление углов */
+    cursor: pointer; /* Курсор руки */
+    font-size: 16px; /* Размер текста */
+    transition: background-color 0.3s ease; /* Анимация изменения фона */
+}
+
+.features button:hover {
+    background-color: #0056b3; /* Более тёмный синий при наведении */
+}
+
+    </style>
+    <h1>Добавление обсуждения</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.title }}<br>
+        {{ form.anons }}<br>
+        {{ form.full_text }}<br>
+        {{ form.date }}<br>
+        <span>{{ error }}</span>
+        <button class="btn btn-success" type="submit">Добавить обсуждение</button>
+
+    </form>
+</div>
+{% endblock %}

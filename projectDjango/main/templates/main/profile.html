@@ -1,0 +1,380 @@
+{% load static %}
+{% load i18n %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{% trans "Личный кабинет" %}</title>
+    <link rel="stylesheet" href="{% static 'main/css/profile.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Верхняя полоса навигации */
+.main-header {
+    position: fixed; /* Закрепляем header сверху */
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.75); /* Полупрозрачный белый фон */
+    backdrop-filter: blur(10px); /* Размытие фона за header */
+    -webkit-backdrop-filter: blur(10px); /* Для поддержки Safari */
+    color: #333;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Поднимаем header над другими элементами */
+}
+
+.main-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+
+.logo img {
+    height: 45px;
+    margin-right: 10px;
+}
+.logo span {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+}
+
+.nav-links a {
+    margin-left: 45px;
+    text-decoration: none;
+    color: #262626;
+    font-size: 20px;
+    transition: opacity 0.3s;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+    color: #3e9438;
+}
+
+/* блок с фоновым изображением */
+.hero {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.5); /* затемнение изображения */
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    color: #fff;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.hero-text p {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+.cta-button {
+    background-color: #c355b5;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #9b468f;
+}
+
+/* Полоса кнопок */
+.button-bar {
+    display: flex;
+    width: 100%;
+    margin-top: auto;
+}
+
+.color-button {
+    flex-grow: 1;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    transition: opacity 0.3s;
+}
+
+.color-button:hover {
+    opacity: 0.9;
+}
+
+
+
+.button-bar1 {
+    display: flex;
+    justify-content: space-between; /* Равномерное распределение кнопок */
+    gap: 0px; /* Отступы между кнопками */
+}
+
+.color-button1 {
+    flex: 1; /* Каждая кнопка занимает равное пространство */
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    transition: opacity 0.3s;
+}
+
+ .heart_logo {
+    transition: color 0.3s ease;
+}
+
+.heart_logo:hover {
+    color: #e50000;
+}
+
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+
+.logo img {
+    height: 45px;
+    margin-right: 10px;
+}
+.logo span {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+
+    </style>
+</head>
+
+<body>
+<!--Блок навигации-->
+
+<header class="main-header">
+    <div class="container">
+        <div class="logo">
+            <a href="{% url 'home' %}"><img src="{% static 'main/img/logo.png' %}" alt="Логотип"></a>
+            <span>Грядка в порядке</span>
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'home' %} ">Главная</a>
+            <a href="{% url 'about' %}">О нас</a>
+            <a href="{% url 'contact' %}">Контакты</a>
+            <a href="{% url 'discussions_home' %}">Форум</a>
+            <a href="{% url 'news_home' %}">Статьи</a>
+            <a href="{% url 'profile' %}" class="LK"><img src="{% static 'main/img/LK2.svg'%}"
+                             alt="Личный кабинет"></a>
+
+
+            {% if user.is_authenticated %}
+        <form style="display:inline-block" method="post" action="{% url 'users:logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="auth-button">{% trans "Выйти" %}</button>
+        </form>
+        {% else %}
+        <form style="display:inline-block" method="post" action="{% url 'users:login' %}">
+            {% csrf_token %}
+            <button type="submit" class="auth-button">{% trans "Войти" %}</button>
+        </form>
+        {% endif %}
+
+
+        </nav>
+    </div>
+</header>
+
+
+<!-- Основной блок -->
+
+<div class="container mt-4 mb-4 p-3 d-flex justify-content-center ">
+    <style>
+
+/* Общие стили для кнопок */
+.auth-button {
+    margin-left: 30px;
+    padding: 10px 20px;
+    font-family: 'Roboto', sans-serif;
+
+
+    font-size: 17px;
+    color: #fff;
+    background-color: #c355b5; /* Синий фон */
+    border: 2px solid #c355b5; /* Рамка того же цвета */
+    border-radius: 30px; /* Скругленные углы */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Плавное изменение при наведении */
+    text-align: center;
+    display: inline-block;
+}
+
+/* Эффект при наведении */
+.auth-button:hover {
+    background-color: #a14594; /* Темно-синий фон при наведении */
+    border-color: #a14594; /* Темно-синий цвет рамки */
+    transform: translateY(-3px); /* Легкое поднятие кнопки */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Тень при наведении */
+}
+
+/* Эффект при нажатии */
+.auth-button:active {
+    transform: translateY(1px); /* Легкое смещение кнопки вниз при клике */
+    box-shadow: none; /* Убираем тень при клике */
+}
+
+/* Мобильная адаптивность */
+@media (max-width: 768px) {
+    .auth-button {
+        font-size: 14px; /* Уменьшаем размер шрифта на мобильных устройствах */
+        padding: 8px 16px; /* Уменьшаем размер кнопки */
+    }
+}
+
+
+/* Карточка */
+  .card {
+    margin-top: 75px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+        .card:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+  }
+
+          /* Картинка пользователя */
+  .image img {
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    transition: all 0.3s ease;
+  }
+
+  .image img:hover {
+    border-color: #007bff;
+    transform: scale(1.05);
+  }
+
+         /* Имя и никнейм */
+  .name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .idd {
+    font-size: 1rem;
+    color: #777;
+  }
+
+  /* Кнопки */
+  .btn-secondary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 50%;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+  }
+
+
+
+
+    </style>
+    <div class="card p-4">
+        <div class=" image d-flex flex-column justify-content-center align-items-center ">
+            <button class="btn btn-secondary"><img
+                    src="https://sun9-9.userapi.com/impg/KDQX9gXWGysq1u5UIYYxqGLPsStLNryTaQbV_w/EKeh48eqTNM.jpg?size=2560x2560&quality=95&sign=69120433d7c5e1c5b0d36cc664bb708b&type=album"
+                    height="100" width="100" border-radius="120px">
+            </button>
+            <span class="name mt-3">
+            {% if request.user.is_authenticated %}
+                {{ request.user.username }}
+            {% else %}
+                Гость
+            {% endif %}
+        </span>
+
+
+            <span class="idd">@eleanorpena</span>
+            <div class="d-flex flex-row justify-content-center align-items-center mt-3"><span class="number">1069 <span
+                    class="follow">{% trans "Подписчиков" %}</span></span></div>
+            <div class=" d-flex mt-2">
+                <button class="btn1 btn-dark">{% trans "Настройки" %}</button>
+            </div>
+            <div class="d-flex mt-2">
+                <a href="{% url 'create' %}" class="btn-simple">{% trans "Добавить статью" %}</a>
+
+
+            </div>
+
+            <div class="text mt-3">
+                {% if request.user.is_authenticated and request.user.username == "admin" %}
+                <span>{% trans "Автор и администратор блога об искусстве и культуре" %}<br><br>{% trans "Журналист / Креативный директор" %} </span>
+                {% endif %}
+
+            </div>
+            <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"><span><i
+                    class="fa fa-twitter"></i></span> <span><i class="fa fa-facebook-f"></i></span> <span><i
+                    class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span></div>
+            <div class=" px-2 rounded mt-4 date "><span class="join">{% trans "Регистрация: 1 декабря 2024 г." %}</span></div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

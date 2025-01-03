@@ -1,0 +1,145 @@
+body{
+
+    background-color:#B3E5FC;
+    border-radius: 10px;
+
+}
+
+
+.card{
+  width: 400px;
+  border: none;
+  border-radius: 10px;
+
+  background-color: #fff;
+}
+
+
+
+.stats{
+
+      background: #f2f5f8 !important;
+
+    color: #000 !important;
+}
+.articles{
+  font-size:10px;
+  color: #a1aab9;
+}
+.number1{
+  font-weight:500;
+}
+.followers{
+    font-size:10px;
+  color: #a1aab9;
+
+}
+.number2{
+  font-weight:500;
+}
+.rating{
+    font-size:10px;
+  color: #a1aab9;
+}
+.number3{
+  font-weight:500;
+}
+
+
+
+
+
+
+
+
+body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            background: #141216;
+            margin: 0;
+            padding: 0;
+        }
+
+        header.my_header {
+             background-color: #070707;
+             color: #ffffff;
+             font-family: 'Vollkorn', serif;
+             border-bottom: 0.1px solid #ffffff;
+             display: flex;
+             justify-content: space-between;
+             position: relative;
+             padding-bottom: 25px;
+             width: 100%; /* Контейнер растянут на всю ширину родителя */
+        }
+
+        .my_header .title {
+           margin-left: 45px;
+        }
+
+        .my_header .logo {
+               width: 90px;
+               position: absolute;
+               top: 25px;
+        }
+
+        .my_header .text .capture {
+            font-size: 35px;
+        }
+
+        .my_header .text .description {
+           margin-top: -25px;
+    font-size: 25px;
+        }
+
+        .menu {
+             display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 40px;
+    font-size: 23px;
+    margin-right: 35px;
+    margin-top: 30px;
+        }
+
+        .menu a.item_header {
+           text-decoration: none;
+    color: #ffffff;
+    transition: transform 0.2s ease, color 0.4s ease, text-shadow 0.2s ease;
+        }
+
+        .menu a.item_header:hover {
+            color: #eb5959;
+    text-shadow: 0px 0px 8px rgba(235, 89, 89, 0.8); /* Создает подсветку текста */
+    transform: scale(1.1); /* Легкое увеличение */
+        }
+
+
+
+
+        .container {
+            margin-top: 80px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .image img {
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .stats {
+            background: #007bff;
+        }
+
+        .stats .d-flex {
+            text-align: center;
+        }
+
+        .button .btn {
+            margin: 0 5px;
+        }
+

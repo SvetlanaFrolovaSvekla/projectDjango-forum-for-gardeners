@@ -1,0 +1,132 @@
+{% extends 'main/layout.html'%}
+{% load static %} <!-- Подключение библиотеки для работы со статическими файлами -->
+{% block title%}
+Новости на сайте
+{% endblock %}
+
+{% block content%}
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const searchBox = document.getElementById("search-box");
+    const searchIcon = document.getElementById("search-icon");
+    const closeIcon = document.getElementById("close-icon");
+    const posts = document.querySelectorAll(".alert");
+
+    // Функция для фильтрации статей
+    const filterPosts = () => {
+        const query = searchBox.value.toLowerCase();
+        posts.forEach(post => {
+            const title = post.getAttribute("data-title");
+            if (title.includes(query)) {
+                post.style.display = "block";
+            } else {
+                post.style.display = "none";
+            }
+        });
+    };
+
+    // Обработчик для кнопки поиска
+    searchIcon.addEventListener("click", filterPosts);
+
+    // Обработчик для кнопки очистки
+    closeIcon.addEventListener("click", () => {
+        searchBox.value = "";
+        posts.forEach(post => (post.style.display = "block"));
+    });
+
+    // Также фильтруем в реальном времени
+    searchBox.addEventListener("input", filterPosts);
+});
+</script>
+
+
+<div class="features-zagolovok">Все обсуждения блога:</div><br>
+<div class="Contai">
+    <div class="info-container">
+        <div class="info-image-container">
+            <img src="{% static 'main/img/cat.png' %}" alt="Cat" class="info-image">
+        </div>
+        <div class="tags-container">
+            <div class="button-bar1">
+                <a href="{% url 'discussions_by_tag' 4 %}" class="color-button1 green">Уход за растениями</a>
+                <a href="{% url 'discussions_by_tag' 2 %}" class="color-button1 orange">Полив</a>
+            </div>
+
+            <div class="button-bar1">
+                <a href="{% url 'discussions_by_tag' 16 %}" class="color-button1 pink">Вертикальный сад</a>
+                <a href="{% url 'discussions_by_tag' 5 %}" class="color-button1 purple">Посадка семян</a>
+            </div>
+            <div class="button-bar1">
+                <a href="{% url 'discussions_by_tag' 8 %}" class="color-button1 brown">Подготовка почвы</a>
+                <a href="{% url 'discussions_by_tag' 9 %}" class="color-button1 gray">Планирование сада</a>
+            </div>
+            <div class="button-bar1">
+                <a href="{% url 'discussions_by_tag' 12 %}" class="color-button1 green">Дачная кухня</a>
+                <a href="{% url 'discussions_by_tag' 13 %}" class="color-button1 orange">Сезонные работы</a>
+            </div>
+            <div class="button-bar1">
+                <a href="{% url 'discussions_by_tag' 3 %}" class="color-button1 yellow">Обрезка</a>
+                <a href="{% url 'discussions_by_tag' 1 %}" class="color-button1 blue">Удобрения</a>
+            </div>
+            <div class="button-bar1">
+                <a href="{% url 'discussions_by_tag' 6 %}" class="color-button1 cyan">Дренаж в саду</a>
+                <a href="{% url 'discussions_by_tag' 7 %}" class="color-button1 lime">Мульчирование</a>
+            </div>
+            <div class="button-bar1">
+                <a href="{% url 'discussions_by_tag' 10 %}" class="color-button1 red">Борьба с вредителями</a>
+                <a href="{% url 'discussions_by_tag' 11 %}" class="color-button1 rome">Садовые композиции</a>
+            </div>
+            <div class="button-bar1">
+                <a href="{% url 'discussions_by_tag' 14 %}" class="color-button1 yellow">Обрезка растений</a>
+                <a href="{% url 'discussions_by_tag' 15 %}" class="color-button1 blue">Гидропоника</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="info-text-1">
+    <h2>Правила на форуме: </h2>
+    <p> Мы рады приветствовать вас на нашем форуме! Чтобы обеспечить комфортное и продуктивное общение, мы просим вас
+        соблюдать несколько простых правил. Пожалуйста, уважайте мнение других участников, избегайте оскорблений и
+        провокационных высказываний. Все сообщения должны быть тематическими и соответствовать разделу форума.
+        Запрещается размещать спам, рекламу или сообщения, содержащие неприемлемый контент. Мы стремимся создать
+        безопасную атмосферу, где каждый сможет обмениваться опытом и получать полезную информацию. Приятного
+        общения! </p>
+</div>
+
+<div class="post_search">
+    <input id="search-box" class="search_box" type="text" placeholder="Поиск обсуждения"/>
+
+    <div><img id="search-icon" src="{% static 'main/img/Search.svg' %}" alt="Icon" class="search_search"></div>
+    <div><img id="close-icon" src="{% static 'main/img/Close2.svg' %}" alt="Icon" class="search_search"></div>
+</div><br>
+
+
+<div id="post-content" class="PostContent">
+    {% if discussions %}
+    {% for el in discussions %}
+    <div class="alert" data-title="{{ el.title|lower }}">
+
+        <div class="post_social_info">
+            <p> Автор: {{ el.author.username|default:_("'Неизвестен'") }} </p>
+            {% if el.image %}
+            <img src="{{ el.image.url }}" alt="Изображение" class="img-fluid">
+            {% endif %}
+            <div class="stat-title">{{ el.title }}</div>
+            <div class="stat-anons">{{ el.anons }}</div>
+            <p class="stat-date">{{ el.date }}</p>
+        </div>
+        <a href="{% url 'discussions_detail' el.id %}" class="btn_red1">Читать обсуждение</a>
+        <br><br>
+        <p class="tegs-style"> Теги: </p>
+        {% for tag in el.tags.all %}
+        <span class="tegs-style-tegs">#{{ tag.name }} </span>
+        {% endfor %}
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="features-notStat"> Таких обсуждений ещё нет!</p>
+    {% endif %}
+</div>
+{% endblock %}

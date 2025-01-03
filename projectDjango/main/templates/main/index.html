@@ -1,0 +1,218 @@
+{% extends 'main/layout.html'%}
+{% load static %} <!-- Подключение библиотеки для работы со статическими файлами -->
+{% load i18n %}
+
+
+{% block title%}
+Грядка в порядке
+{% endblock %}
+
+{% block content%}
+
+
+
+
+
+
+<div class="hero" style="background-image: url('{% static 'main/img/bac2.jpg' %}');">
+    <div class="overlay">
+        <div class="hero-text">
+            <h1>Садоводство — это искусство</h1>
+            <p>
+                Превращайте мир вокруг в зелёный оазис с нашими советами, вдохновением и секретами успешного выращивания
+                растений.
+            </p>
+            <a href="#" class="cta-button">Узнать больше</a>
+        </div>
+    </div>
+    <div class="button-bar">
+        <a href="{% url 'news_by_tag' 4 %}" class="color-button green">Уход за растениями</a>
+        <a href="{% url 'news_by_tag' 1 %}" class="color-button orange">Полив</a>
+        <a href="{% url 'news_by_tag' 16 %}" class="color-button yellow">Обрезка</a>
+        <a href="{% url 'news_by_tag' 3 %}" class="color-button blue">Удобрения</a>
+    </div>
+</div>
+
+<section class="info-section">
+   <div class="info-container">
+
+
+      <img src="{% static 'main/img/cat2.png' %}" alt="Cat" class="info-image">
+      <div class="info-text">
+         <h2>Информация на нашем сайте</h2>
+         <p>
+            Мы собираем и делимся лучшими идеями. Наш сайт — это источник самой актуальной и достоверной информации для всех любителей садоводства. Мы тщательно отбираем только проверенные советы и методы ухода за растениями, делая их доступными для каждого. Наши материалы обсуждаются и обновляются экспертами.
+            Вы можете выбрать интересующий вас раздел по тегам!
+         </p>
+      </div>
+   </div>
+</section>
+
+
+ <div class="button-bar1">
+       <a href="{% url 'news_by_tag' 13 %}" class="color-button1 green">Дачная кухня</a>
+        <a href="{% url 'news_by_tag' 12 %}" class="color-button1 orange">Садовые композиции</a>
+        <a href="{% url 'news_by_tag' 14 %}" class="color-button1 yellow">Сезонные работы</a>
+        <a href="{% url 'news_by_tag' 16 %}" class="color-button1 blue">Гидропоника</a>
+ </div>
+ <div class="button-bar1">
+    <a href="{% url 'news_by_tag' 5 %}" class="color-button1 pink">Вертикальный сад</a>
+    <a href="{% url 'news_by_tag' 6 %}" class="color-button1 purple">Посадка семян</a>
+    <a href="{% url 'news_by_tag' 7 %}" class="color-button1 cyan">Дренаж в саду</a>
+    <a href="{% url 'news_by_tag' 8 %}" class="color-button1 lime">Мульчирование</a>
+</div>
+<div class="button-bar1">
+    <a href="{% url 'news_by_tag' 9 %}" class="color-button1 brown">Подготовка почвы</a>
+    <a href="{% url 'news_by_tag' 10 %}" class="color-button1 gray">Планирование сада</a>
+    <a href="{% url 'news_by_tag' 11 %}" class="color-button1 red">Борьба с вредителями</a>
+    <a href="{% url 'news_by_tag' 12 %}" class="color-button1 rome">Садовые композиции</a>
+</div>
+
+
+
+
+<section class="info-section-2">
+    <h2>О нашем сайте</h2>
+    <p>
+        Наш сайт создан для тех, кто любит природу. Здесь вы найдёте практические советы, секреты ухода за растениями и
+        вдохновение для создания своего идеального сада.
+    </p>
+    <div class="menuCocial">
+        <div><a href="#" class="item_menuCocial"> <img src="{% static 'main/img/Dzen.svg' %}" alt="Icon"
+                                                       class="menu-icon"> </a></div>
+        <div><a href="#" class="item_menuCocial"> <img src="{% static 'main/img/Telegramm.svg' %}" alt="Icon"
+                                                       class="menu-icon"> </a></div>
+        <div><a href="#" class="item_menuCocial"> <img src="{% static 'main/img/Twitter.svg' %}" alt="Icon"
+                                                       class="menu-icon"> </a></div>
+    </div>
+
+</section>
+
+
+
+
+<section class="info-section-21 additional-section21">
+    <h2>Новые темы на форуме</h2>
+    <p>
+        Мы постоянно развиваемся, добавляя новые функции и улучшая старые. Следите за обновлениями, чтобы быть в курсе последних изменений!
+    </p>
+    <div class="features-list21">
+        <div class="feature-item21">
+            <h3>Умный календарь</h3>
+            <p>Планируйте уход за растениями с помощью нашего уникального календаря, который подскажет лучшие дни для посадки, полива и обрезки.</p>
+        </div>
+        <div class="feature-item21">
+            <h3>Советы экспертов</h3>
+            <p>Получайте консультации от опытных садоводов, которые делятся секретами успеха на нашем сайте.</p>
+        </div>
+        <div class="feature-item21">
+            <h3>Садовые проекты</h3>
+            <p>Создавайте собственные уникальные проекты, вдохновляясь идеями из нашей коллекции.</p>
+        </div>
+    </div>
+</section>
+
+
+
+<!--
+<div class="post_search">
+    <input class="search_box" type="text" placeholder="Поиск статьи"/>
+    <div><img src="{% static 'main/img/Search.svg' %}" alt="Icon" class="search_search"></div>
+    <div><img src="{% static 'main/img/Close.svg' %}" alt="Icon" class="search_search"></div>
+</div>
+-->
+
+
+<div class="features-zagolovok">Новые статьи</div>
+<div class="news-slider">
+    {% for el in news %}
+    <div class="news-card">
+        <p> Автор: {{ el.author.username|default:_("'Неизвестен'") }} </p>
+        {% if el.image %}
+        <img src="{{ el.image.url }}" alt="Изображение" class="news-img">
+        {% endif %}
+        <div class="stat-title">{{ el.title }}</div>
+        <div class="stat-anons">{{ el.anons }}</div>
+        <div class="stat-date">{{ el.date }}</div>
+        <a href="{% url 'news_detail' el.id %}" class="btn_red">Читать статью</a>
+    </div>
+    {% endfor %}
+</div>
+<div class="features-more">
+    <a href="{% url 'news_home' %}">Смотреть все статьи >> </a>
+</div>
+
+
+<!-- Напиши тут разметку... -->
+<div class="forum-section">
+    <div class="container-forum">
+        <!-- Блок с темами форума -->
+        <div class="forum-topics">
+            <h3>Темы форума</h3>
+            <ul class="topic-list">
+                <li class="topic-item">
+                    <a href="#">Как ухаживать за растениями зимой?</a>
+                    <p>Обсуждений: 15</p>
+                </li>
+                <li class="topic-item">
+                    <a href="#">Выбор удобрений для рассады</a>
+                    <p>Обсуждений: 10</p>
+                </li>
+                <li class="topic-item">
+                    <a href="#">Идеи для садового дизайна</a>
+                    <p>Обсуждений: 8</p>
+                </li>
+            </ul>
+        </div>
+        <!-- Блок с последними сообщениями -->
+        <div class="latest-messages">
+            <h3>Последние сообщения</h3>
+            <ul class="message-list">
+                <li class="message-item">
+                    <div class="message-meta">
+                        <p><strong>Тема:</strong> <a href="#">Как ухаживать за растениями зимой?</a></p>
+                        <p><strong>Автор:</strong> Иван Иванов</p>
+                        <p><strong>Дата:</strong> 17.12.2024</p>
+                    </div>
+                    <div class="message-preview">
+                        <p>Попробуйте мульчирование, оно помогает сохранить тепло корням...</p>
+                    </div>
+                </li>
+                <li class="message-item">
+                    <div class="message-meta">
+                        <p><strong>Тема:</strong> <a href="#">Выбор удобрений для рассады</a></p>
+                        <p><strong>Автор:</strong> Ольга Петрова</p>
+                        <p><strong>Дата:</strong> 16.12.2024</p>
+                    </div>
+                    <div class="message-preview">
+                        <p>Я использую органические удобрения, они безопаснее для экологии...</p>
+                    </div>
+                </li>
+                <li class="message-item">
+                    <div class="message-meta">
+                        <p><strong>Тема:</strong> <a href="#">Идеи для садового дизайна</a></p>
+                        <p><strong>Автор:</strong> Александр Смирнов</p>
+                        <p><strong>Дата:</strong> 15.12.2024</p>
+                    </div>
+                    <div class="message-preview">
+                        <p>Добавьте освещение, это создаёт уютную атмосферу в саду...</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="footer">
+    <div class="footer-content">
+        <p>{% trans "Автор сайта: Фролова Светлана" %}</p>
+        <p>{% trans "Год создания: 2024" %}</p>
+        <p>{% trans "Все права защищены" %}</p>
+        {{ dataTime.day }}
+        {{ dataTime.month }}
+    </div>
+</div>
+
+{% endblock %}>
